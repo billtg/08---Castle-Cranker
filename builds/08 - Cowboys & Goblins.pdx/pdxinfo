@@ -1,0 +1,6 @@
+name=Cowboys N' Goblins
+author=SquidGod & Graham Tattersall
+description=Testing game for learning Playdate.
+imagePath=card.png
+pdxversion=20100
+buildtime=755347785
