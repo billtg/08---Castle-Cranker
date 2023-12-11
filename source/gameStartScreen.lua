@@ -15,7 +15,7 @@ local highScoreSprite = gfx.sprite.new()
 function GameStartScreen:init()
     --write the start instructions
     --Create the title text
-    local titleText = "Cowboys & Goblins"
+    local titleText = "Castle Cranker"
     local titleImage = gfx.image.new(gfx.getTextSize(titleText))
     gfx.pushContext(titleImage)
         gfx.drawText(titleText,0,0)
