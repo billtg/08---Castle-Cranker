@@ -10,6 +10,7 @@ function Pentagram:init(x,y)
     local pentagramRadius = 270
     local pentagramImage = gfx.image.new(pentagramRadius *2,pentagramRadius*2)
     gfx.pushContext(pentagramImage)
+        gfx.setLineWidth(2)
         --Draw the circle   
         gfx.setColor(gfx.kColorWhite)
         gfx.fillCircleAtPoint(pentagramRadius,pentagramRadius, pentagramRadius)
@@ -21,6 +22,7 @@ function Pentagram:init(x,y)
         gfx.drawLine(pentagramRadius-math.sin(144*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(144*math.pi/180)*pentagramRadius,pentagramRadius,0)
         gfx.drawLine(pentagramRadius,0,pentagramRadius+math.sin(144*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(144*math.pi/180)*pentagramRadius)
         gfx.drawLine(pentagramRadius+math.sin(144*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(144*math.pi/180)*pentagramRadius,pentagramRadius-math.sin(72*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(72*math.pi/180)*pentagramRadius)
+        gfx.setLineWidth(1)
     gfx.popContext()
     self:setImage(pentagramImage)
 
@@ -46,7 +48,7 @@ function Pentagram:update()
         for index, collision in pairs(collisions) do
             local collidedObject = collision['other']
             if collidedObject:isa(Enemy) then
-                collidedObject:remove()
+                collidedObject:Die()
                 IncrementScore()
                 SetShakeAmount(5)
                 HitEnemy()
@@ -62,6 +64,7 @@ function Pentagram:ResetPentagramImage(newRadius)
     local pentagramRadius = newRadius/2
     local pentagramImage = gfx.image.new(pentagramRadius *2,pentagramRadius*2)
     gfx.pushContext(pentagramImage)
+        gfx.setLineWidth(2)
         gfx.setColor(gfx.kColorWhite)
         gfx.fillCircleAtPoint(pentagramRadius,pentagramRadius, pentagramRadius)
         gfx.setColor(gfx.kColorBlack)
@@ -71,6 +74,7 @@ function Pentagram:ResetPentagramImage(newRadius)
         gfx.drawLine(pentagramRadius-math.sin(144*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(144*math.pi/180)*pentagramRadius,pentagramRadius,0)
         gfx.drawLine(pentagramRadius,0,pentagramRadius+math.sin(144*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(144*math.pi/180)*pentagramRadius)
         gfx.drawLine(pentagramRadius+math.sin(144*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(144*math.pi/180)*pentagramRadius,pentagramRadius-math.sin(72*math.pi/180)*pentagramRadius,pentagramRadius-math.cos(72*math.pi/180)*pentagramRadius)
+        gfx.setLineWidth(1)
     gfx.popContext()
     self:setImage(pentagramImage)
 end

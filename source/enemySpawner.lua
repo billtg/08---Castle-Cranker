@@ -1,13 +1,16 @@
 import "enemy"
 import "Enemies/slime"
 import "Enemies/bigSlime"
+import "Enemies/ghost"
+import "Enemies/fire"
+import "waveCard"
 
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
 local waveNumber
 local spawnedEnemies
-local waveEnemies = {20, 75, 100}
+local waveEnemies = {3, 75, 100}
 local enemiesTable
 local spawnTimer
 local minSpawn = 500
@@ -36,12 +39,15 @@ end
 function SpawnEnemy()
     local spawnPosition = math.random(10,230)
     --Enemy(430,spawnPosition, 5)
-    if spawnAlternate then
+    local enemyType = math.random(1,4)
+    if enemyType == 1 then
         enemiesTable[spawnedEnemies] = Slime(430,spawnPosition, spawnedEnemies)
-        spawnAlternate = false
-    else
+    elseif enemyType == 2 then   
         enemiesTable[spawnedEnemies] = BigSlime(430,spawnPosition, spawnedEnemies)
-        spawnAlternate = true
+    elseif enemyType == 3 then
+        enemiesTable[spawnedEnemies] = Ghost(430,spawnPosition, spawnedEnemies)
+    elseif enemyType == 4 then
+        enemiesTable[spawnedEnemies] = Fire(430,spawnPosition, spawnedEnemies)
     end
 
     spawnedEnemies += 1
@@ -78,6 +84,10 @@ function ClearEnemies()
 end
 
 function EnemyDied(enemyIndex)
+    if enemyIndex == -1 then
+        --return for fire spawn
+        return
+    end
     enemiesTable[enemyIndex] = nil
     --Check for all enemies dead
     if spawnedEnemies == waveEnemies[waveNumber] then
@@ -97,6 +107,7 @@ end
 function WaveFinished()
     print("Wave finished")
     waveNumber += 1
+    --WaveCard(waveNumber)
     
     waveDelayTimer = pd.timer.performAfterDelay(1000,function ()
         StartSpawner(waveNumber)
